@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
     for (int i=0; i<4 ;i++ )
    	 serpiente.prepend(QPoint(40+40*i, 40));
 
+    direccion = derecha;
+    teclaPulsada = Qt::Key_Space;
 }
 
 void MainWindow::paintEvent(QPaintEvent * event){
@@ -28,13 +30,57 @@ void MainWindow::paintEvent(QPaintEvent * event){
 
 }
 
+void MainWindow::keyPressEvent(QKeyEvent * event){
+
+    switch (event->key()) {    
+        case Qt::Key_Right :
+ 	        if ( direccion != izquierda ) teclaPulsada = Qt::Key_Right;
+ 	        break;
+
+        case Qt::Key_Up :
+	        if (direccion != abajo ) teclaPulsada = Qt::Key_Up;
+	        break;
+
+        case Qt::Key_Left :
+ 	        if ( direccion != derecha ) teclaPulsada = Qt::Key_Left;
+ 	        break;
+
+        case Qt::Key_Down :
+	        if (direccion != arriba ) teclaPulsada = Qt::Key_Down ;
+	        break;
+ }
+
+
+}
+
 void MainWindow::slotTemporizador(){
 
     
     this->update();
 
+    int xNueva = serpiente.first().x();
+    int yNueva = serpiente.first().y();
+
     serpiente.prepend(
-   	 QPoint( serpiente.first().x()+40,serpiente.first().y()));
+   	 QPoint( xNueva+40,yNueva));
     serpiente.pop_back();
+
+    //Vamos a controlar el movimiento de la serpiente (DIRECCIÓN)
+    if ( direccion == derecha )
+        xNueva = xNueva + 10;
+
+    if ( direccion == izquierda )
+        xNueva = xNueva - 10;
+
+    if ( direccion == arriba )
+        yNueva = yNueva + 10;
+
+    if ( direccion == abajo )
+        yNueva = yNueva - 10;
+
+
+    QPoint p(xNueva, yNueva);
+
+
 
 }

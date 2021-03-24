@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QPaintEvent>
+#include <QKeyEvent>
 #include <QTimer>
 #include <QVector>
 #include <QPoint>
@@ -19,7 +20,12 @@ public:
     int posX,posY;
     QVector<QPoint> serpiente;
 
+    typedef enum { derecha, izquierda, arriba, abajo, } direcciones;
+    direcciones direccion;
+    Qt::Key teclaPulsada;
+
     void paintEvent(QPaintEvent *event);
+    void keyPressEvent(QKeyEvent * event);
 
 public slots:
 
