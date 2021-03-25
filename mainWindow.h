@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <QVector>
 #include <QPoint>
+#include <QColor>
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -18,6 +19,12 @@ public:
 
     QTimer *temporizador;
     int posX,posY;
+
+    int comidaX, comidaY;
+    bool haComido;
+
+    QColor color = QColor(random()%256, random()%256, random()%256);
+
     QVector<QPoint> serpiente;
 
     typedef enum { derecha, izquierda, arriba, abajo, } direcciones;
