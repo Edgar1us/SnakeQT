@@ -10,6 +10,10 @@
 #include <QVector>
 #include <QPoint>
 #include <QColor>
+#include <QAction>
+#include "DNombreJugador.h"
+#include "DPuntuaciones.h"
+#include "DControlPad.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -21,6 +25,7 @@ public:
     int posX,posY;
 
     int comidaX, comidaY;
+    int puntuacion;
     bool haComido;
 
     QColor color = QColor(random()%256, random()%256, random()%256);
@@ -31,12 +36,24 @@ public:
     direcciones direccion;
     Qt::Key teclaPulsada;
 
+    QAction * accionControlPad;
+
+    DNombreJugador * dNombreJugador;
+    DPuntuaciones * dPuntuaciones;
+    DControlPad * dControlPad;
+
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent * event);
+    void nuevoJugador();
+    void mostrarPuntuaciones();
+    void guardarPuntuacion(QString, int);
+    void inicializarMenu();
 
 public slots:
 
     void slotTemporizador();
+    void slotCambiaDireccion(DControlPad::Direccion);
+    void slotPanelDControl();
 
 };
 #endif

@@ -3,6 +3,9 @@
 #include <QBrush>
 #include <QColor>
 #include <QMessageBox>
+#include <QDebug>
+#include <QMenu>
+#include <QMenuBar>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
 
@@ -14,7 +17,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
     temporizador->setSingleShot(false);
     temporizador->start();
 
+    inicializarMenu();
+
     connect(temporizador,SIGNAL(timeout()), this, SLOT(slotTemporizador()));
+    
 
     for (int i=0; i<4 ;i++ )
    	 serpiente.prepend(QPoint(40+40*i, 40));
@@ -25,6 +31,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
     comidaX = ((random() % width()) /40 ) * 40;
     comidaY = ((random() % height()) /40 ) * 40;
     haComido = false;
+
+    dNombreJugador = NULL;
+    dPuntuaciones = NULL;
+    dControlPad = NULL;
+
+    puntuacion = 0;
 
 }
 
@@ -40,9 +52,23 @@ void MainWindow::paintEvent(QPaintEvent * event){
    	    pintor.drawRect(p.x(),p.y(),40,40);
      
     }
-     pintor.setBrush(Qt::red);
+    pintor.setBrush(Qt::red);
     pintor.drawRect(comidaX, comidaY, 40, 40 );
   
+}
+
+void MainWindow::inicializarMenu(){
+    QMenu *menu = menuBar()->addMenu("Opciones");
+
+    accionControlPad = new QAction("Panel de control", this);
+    accionControlPad->setToolTip("Panel de control"); 
+    accionControlPad->setStatusTip("Panel de control");
+
+    connect(accionControlPad, SIGNAL(triggered()),
+            this, SLOT(slotPanelDControl()));
+
+    menu->addAction(accionControlPad);
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent * event){
@@ -67,6 +93,39 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
 
 
 }
+
+/*void MainWindow::nuevoJugador(){
+
+    if (dNombreJugador == NULL){
+            dNombreJugador = new DNombreJugador(this);    
+    }
+
+    
+
+}*/
+
+void MainWindow::mostrarPuntuaciones(){
+
+    if (dPuntuaciones == NULL){
+            dPuntuaciones = new DPuntuaciones(this);    
+    }
+
+    dPuntuaciones->exec();
+
+}
+
+void MainWindow::guardarPuntuacion(QString nombre, int puntuacion) {
+
+    QFile fichero("./puntuaciones");
+    fichero.open(QIODevice::Append);
+
+    QTextStream stream(&fichero);
+
+    
+    stream << nombre << " "  << QString::number(puntuacion)<<endl;
+}
+
+/***************************SLOTS********************************************************/
 
 void MainWindow::slotTemporizador(){
 
@@ -126,17 +185,69 @@ void MainWindow::slotTemporizador(){
     }
 
     if ( serpiente.contains(QPoint(xNueva,yNueva) )) {
-   	 temporizador->stop();
-   	   QMessageBox::warning(this, tr("SNAKE"),
-              	tr("Has chocao\n Game Over"));
+   	    temporizador->stop();
+
+        puntuacion = serpiente.size();
+        //qDebug() << "Puntuacion: " << puntuacion;
+
+
+        if (dNombreJugador == NULL){
+            dNombreJugador = new DNombreJugador(this);    
+        }
+
+        dNombreJugador->exec();
+        QString nombre = dNombreJugador->edtJugador->text();
+        //qDebug() << "Nombre: " << nombre;
+
+        guardarPuntuacion(nombre, puntuacion);
+
+        mostrarPuntuaciones();
+        
+        
     }
 
     QPoint p(xNueva, yNueva);
 
     serpiente.prepend(p);
+    
+    
+    
 
-    if ( !haComido ) 
+    if ( !haComido ) {
         serpiente.pop_back();
+        
+    }
     haComido=false;
 
+}
+
+void MainWindow::slotCambiaDireccion(DControlPad::Direccion dir){
+
+    switch(dir){
+       case DControlPad::derecha :
+ 	        teclaPulsada = Qt::Key_Right;
+ 	        break;
+
+        case DControlPad::izquierda :
+	        teclaPulsada = Qt::Key_Left;
+	        break;
+
+        case DControlPad::arriba :
+ 	        teclaPulsada = Qt::Key_Up;
+ 	        break;
+
+        case DControlPad::abajo :
+	        teclaPulsada = Qt::Key_Down;
+	        break; 
+    }
+
+}
+
+void MainWindow::slotPanelDControl(){
+
+    if (dControlPad == NULL){
+            dControlPad = new DControlPad(this);    
+        }
+
+        dControlPad->show();
 }
