@@ -4,8 +4,11 @@
 WidgetComida::WidgetComida( Comida c, QWidget *parent) : comida(c), QWidget(parent){
     setupUi(this);    
 
-    /*QPixmap pixmap;
+    //TRANSFORMAR QLABEL EN IMAGE PARA PODER PONER UNA IMAGEN EN CADA QWIDGET
+    QPixmap pixmap;
     pixmap.convertFromImage(comida.imagen);
-    lImagen->setPixmap(pixmap);*/
+    lImagen->setPixmap(pixmap);
+
+    
 }
 

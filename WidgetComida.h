@@ -9,6 +9,7 @@ class WidgetComida : public QWidget, public Ui::WidgetComida{
 
 	public:    
 		WidgetComida(Comida c, QWidget * parent = 0);
+		WidgetComida();
 		Comida comida;
 
 };

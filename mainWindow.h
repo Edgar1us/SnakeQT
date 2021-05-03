@@ -15,6 +15,7 @@
 #include "DPuntuaciones.h"
 #include "DControlPad.h"
 #include "Comida.h"
+#include "DComidas.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -41,11 +42,12 @@ public:
     direcciones direccion;
     Qt::Key teclaPulsada;
 
-    QAction * accionControlPad;
+    QAction * accionControlPad, * accionDComidas;
 
     DNombreJugador * dNombreJugador;
     DPuntuaciones * dPuntuaciones;
     DControlPad * dControlPad;
+    //DComidas * dComidas;
     
     Comida comidaActual;
 
@@ -63,6 +65,7 @@ public slots:
     void slotTemporizador();
     void slotCambiaDireccion(DControlPad::Direccion);
     void slotPanelDControl();
+    void slotDComidas();
     
 
 };

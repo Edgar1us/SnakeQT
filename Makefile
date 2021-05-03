@@ -416,6 +416,10 @@ moc_mainWindow.cpp: DNombreJugador.h \
 		DControlPad.h \
 		ui_DControlPad.h \
 		Comida.h \
+		DComidas.h \
+		ui_DComidas.h \
+		WidgetComida.h \
+		ui_WidgetComida.h \
 		mainWindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -491,7 +495,11 @@ main.o: main.cpp mainWindow.h \
 		ui_DPuntuaciones.h \
 		DControlPad.h \
 		ui_DControlPad.h \
-		Comida.h
+		Comida.h \
+		DComidas.h \
+		ui_DComidas.h \
+		WidgetComida.h \
+		ui_WidgetComida.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainWindow.o: mainWindow.cpp mainWindow.h \
@@ -501,7 +509,11 @@ mainWindow.o: mainWindow.cpp mainWindow.h \
 		ui_DPuntuaciones.h \
 		DControlPad.h \
 		ui_DControlPad.h \
-		Comida.h
+		Comida.h \
+		DComidas.h \
+		ui_DComidas.h \
+		WidgetComida.h \
+		ui_WidgetComida.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainWindow.o mainWindow.cpp
 
 WidgetComida.o: WidgetComida.cpp WidgetComida.h \
