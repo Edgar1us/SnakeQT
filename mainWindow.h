@@ -14,6 +14,7 @@
 #include "DNombreJugador.h"
 #include "DPuntuaciones.h"
 #include "DControlPad.h"
+#include "Comida.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -25,12 +26,16 @@ public:
     int posX,posY;
 
     int comidaX, comidaY;
+    int xNueva, yNueva;
+    static const int TAM=40;
     int puntuacion;
     bool haComido;
+    int segmentosQuedan;
 
     QColor color = QColor(random()%256, random()%256, random()%256);
 
     QVector<QPoint> serpiente;
+    QVector<Comida> comidas;
 
     typedef enum { derecha, izquierda, arriba, abajo, } direcciones;
     direcciones direccion;
@@ -41,6 +46,9 @@ public:
     DNombreJugador * dNombreJugador;
     DPuntuaciones * dPuntuaciones;
     DControlPad * dControlPad;
+    
+    Comida comidaActual;
+
 
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent * event);
@@ -48,12 +56,14 @@ public:
     void mostrarPuntuaciones();
     void guardarPuntuacion(QString, int);
     void inicializarMenu();
+    void inicializaComidas();
 
 public slots:
 
     void slotTemporizador();
     void slotCambiaDireccion(DControlPad::Direccion);
     void slotPanelDControl();
+    
 
 };
 #endif

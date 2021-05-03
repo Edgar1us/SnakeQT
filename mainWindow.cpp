@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
     temporizador->start();
 
     inicializarMenu();
+    inicializaComidas();
 
     connect(temporizador,SIGNAL(timeout()), this, SLOT(slotTemporizador()));
     
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
     comidaX = ((random() % width()) /40 ) * 40;
     comidaY = ((random() % height()) /40 ) * 40;
     haComido = false;
+    segmentosQuedan = 0;
 
     dNombreJugador = NULL;
     dPuntuaciones = NULL;
@@ -53,7 +55,8 @@ void MainWindow::paintEvent(QPaintEvent * event){
      
     }
     pintor.setBrush(Qt::red);
-    pintor.drawRect(comidaX, comidaY, 40, 40 );
+    pintor.drawRect(QRect(comidaX,comidaY,TAM,TAM));
+    pintor.drawImage(QRect(comidaX,comidaY,TAM,TAM),comidaActual.imagen);
   
 }
 
@@ -125,14 +128,28 @@ void MainWindow::guardarPuntuacion(QString nombre, int puntuacion) {
     stream << nombre << " "  << QString::number(puntuacion)<<endl;
 }
 
+void MainWindow::inicializaComidas(){
+
+    QStringList frutas;
+    frutas  << "naranja.png" << "limon.png"<< "manzana.png" ;
+
+    for (int i=0; i<frutas.length(); i++){
+   	    QString ruta = "./imagenes/";
+   	    ruta = ruta + frutas.at(i);
+   	    comidas.append(Comida(QImage(ruta),2*i+1,true));
+    }
+    comidaActual = comidas.at(0);
+
+}
+
 /***************************SLOTS********************************************************/
 
 void MainWindow::slotTemporizador(){
 
     this->update();
 
-    int xNueva = serpiente.first().x();
-    int yNueva = serpiente.first().y();
+    xNueva = serpiente.first().x();
+    yNueva = serpiente.first().y();
 
     //Vamos a controlar el movimiento de la serpiente (DIRECCIÓN)
     
@@ -173,16 +190,24 @@ void MainWindow::slotTemporizador(){
 
     if ( (xNueva == comidaX ) && (yNueva == comidaY) ) {
 
-   	    haComido = true;
-   	    
+        segmentosQuedan = comidaActual.alimento;
+        comidaX = ((random() % width()) /TAM ) * TAM ;
+        comidaY = ((random() % height()) /TAM ) * TAM ;
+        int nuevo = random() % comidas.length();
+        comidaActual=comidas.at(nuevo);
+
         while (true){
             comidaX = ((random() % (width()-40)) /40 ) * 40;
    	        comidaY = ((random() % (height()-80)) /40 ) * 40;
 
             if ( !serpiente.contains(QPoint(comidaX,comidaY) ))
                 break;
-        }   
+        } 
+
     }
+   	    
+          
+    
 
     if ( serpiente.contains(QPoint(xNueva,yNueva) )) {
    	    temporizador->stop();
@@ -200,24 +225,15 @@ void MainWindow::slotTemporizador(){
         //qDebug() << "Nombre: " << nombre;
 
         guardarPuntuacion(nombre, puntuacion);
-
         mostrarPuntuaciones();
-        
-        
     }
-
     QPoint p(xNueva, yNueva);
-
     serpiente.prepend(p);
-    
-    
-    
+    if (segmentosQuedan == 0 )
+   	    serpiente.pop_back();
+    else
+        segmentosQuedan--;
 
-    if ( !haComido ) {
-        serpiente.pop_back();
-        
-    }
-    haComido=false;
 
 }
 

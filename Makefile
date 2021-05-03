@@ -50,23 +50,33 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = DControlPad.cpp \
+SOURCES       = Comida.cpp \
+		DComidas.cpp \
+		DControlPad.cpp \
 		DNombreJugador.cpp \
 		DPuntuaciones.cpp \
 		main.cpp \
-		mainWindow.cpp moc_DControlPad.cpp \
+		mainWindow.cpp \
+		WidgetComida.cpp moc_DComidas.cpp \
+		moc_DControlPad.cpp \
 		moc_DNombreJugador.cpp \
 		moc_DPuntuaciones.cpp \
-		moc_mainWindow.cpp
-OBJECTS       = DControlPad.o \
+		moc_mainWindow.cpp \
+		moc_WidgetComida.cpp
+OBJECTS       = Comida.o \
+		DComidas.o \
+		DControlPad.o \
 		DNombreJugador.o \
 		DPuntuaciones.o \
 		main.o \
 		mainWindow.o \
+		WidgetComida.o \
+		moc_DComidas.o \
 		moc_DControlPad.o \
 		moc_DNombreJugador.o \
 		moc_DPuntuaciones.o \
-		moc_mainWindow.o
+		moc_mainWindow.o \
+		moc_WidgetComida.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -140,14 +150,20 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		snake.pro DControlPad.h \
+		snake.pro Comida.h \
+		DComidas.h \
+		DControlPad.h \
 		DNombreJugador.h \
 		DPuntuaciones.h \
-		mainWindow.h DControlPad.cpp \
+		mainWindow.h \
+		WidgetComida.h Comida.cpp \
+		DComidas.cpp \
+		DControlPad.cpp \
 		DNombreJugador.cpp \
 		DPuntuaciones.cpp \
 		main.cpp \
-		mainWindow.cpp
+		mainWindow.cpp \
+		WidgetComida.cpp
 QMAKE_TARGET  = snake
 DESTDIR       = 
 TARGET        = snake
@@ -156,7 +172,7 @@ TARGET        = snake
 first: all
 ####### Build rules
 
-$(TARGET): ui_DControlPad.h ui_DNombreJugador.h ui_DPuntuaciones.h $(OBJECTS)  
+$(TARGET): ui_DComidas.h ui_DControlPad.h ui_DNombreJugador.h ui_DPuntuaciones.h ui_WidgetComida.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: snake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -329,9 +345,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents DControlPad.h DNombreJugador.h DPuntuaciones.h mainWindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents DControlPad.cpp DNombreJugador.cpp DPuntuaciones.cpp main.cpp mainWindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents DControlPad.ui DNombreJugador.ui DPuntuaciones.ui $(DISTDIR)/
+	$(COPY_FILE) --parents Comida.h DComidas.h DControlPad.h DNombreJugador.h DPuntuaciones.h mainWindow.h WidgetComida.h $(DISTDIR)/
+	$(COPY_FILE) --parents Comida.cpp DComidas.cpp DControlPad.cpp DNombreJugador.cpp DPuntuaciones.cpp main.cpp mainWindow.cpp WidgetComida.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents DComidas.ui DControlPad.ui DNombreJugador.ui DPuntuaciones.ui WidgetComida.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -363,9 +379,18 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -w -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_DControlPad.cpp moc_DNombreJugador.cpp moc_DPuntuaciones.cpp moc_mainWindow.cpp
+compiler_moc_header_make_all: moc_DComidas.cpp moc_DControlPad.cpp moc_DNombreJugador.cpp moc_DPuntuaciones.cpp moc_mainWindow.cpp moc_WidgetComida.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_DControlPad.cpp moc_DNombreJugador.cpp moc_DPuntuaciones.cpp moc_mainWindow.cpp
+	-$(DEL_FILE) moc_DComidas.cpp moc_DControlPad.cpp moc_DNombreJugador.cpp moc_DPuntuaciones.cpp moc_mainWindow.cpp moc_WidgetComida.cpp
+moc_DComidas.cpp: ui_DComidas.h \
+		Comida.h \
+		WidgetComida.h \
+		ui_WidgetComida.h \
+		DComidas.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/edgar/interfaces/qt/snake -I/home/edgar/interfaces/qt/snake -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DComidas.h -o moc_DComidas.cpp
+
 moc_DControlPad.cpp: ui_DControlPad.h \
 		DControlPad.h \
 		moc_predefs.h \
@@ -390,16 +415,27 @@ moc_mainWindow.cpp: DNombreJugador.h \
 		ui_DPuntuaciones.h \
 		DControlPad.h \
 		ui_DControlPad.h \
+		Comida.h \
 		mainWindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/edgar/interfaces/qt/snake -I/home/edgar/interfaces/qt/snake -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainWindow.h -o moc_mainWindow.cpp
 
+moc_WidgetComida.cpp: ui_WidgetComida.h \
+		WidgetComida.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/edgar/interfaces/qt/snake -I/home/edgar/interfaces/qt/snake -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include WidgetComida.h -o moc_WidgetComida.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_DControlPad.h ui_DNombreJugador.h ui_DPuntuaciones.h
+compiler_uic_make_all: ui_DComidas.h ui_DControlPad.h ui_DNombreJugador.h ui_DPuntuaciones.h ui_WidgetComida.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_DControlPad.h ui_DNombreJugador.h ui_DPuntuaciones.h
+	-$(DEL_FILE) ui_DComidas.h ui_DControlPad.h ui_DNombreJugador.h ui_DPuntuaciones.h ui_WidgetComida.h
+ui_DComidas.h: DComidas.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic DComidas.ui -o ui_DComidas.h
+
 ui_DControlPad.h: DControlPad.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic DControlPad.ui -o ui_DControlPad.h
@@ -412,6 +448,10 @@ ui_DPuntuaciones.h: DPuntuaciones.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic DPuntuaciones.ui -o ui_DPuntuaciones.h
 
+ui_WidgetComida.h: WidgetComida.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic WidgetComida.ui -o ui_WidgetComida.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -421,6 +461,16 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+Comida.o: Comida.cpp Comida.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Comida.o Comida.cpp
+
+DComidas.o: DComidas.cpp DComidas.h \
+		ui_DComidas.h \
+		Comida.h \
+		WidgetComida.h \
+		ui_WidgetComida.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DComidas.o DComidas.cpp
 
 DControlPad.o: DControlPad.cpp DControlPad.h \
 		ui_DControlPad.h
@@ -440,7 +490,8 @@ main.o: main.cpp mainWindow.h \
 		DPuntuaciones.h \
 		ui_DPuntuaciones.h \
 		DControlPad.h \
-		ui_DControlPad.h
+		ui_DControlPad.h \
+		Comida.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainWindow.o: mainWindow.cpp mainWindow.h \
@@ -449,8 +500,16 @@ mainWindow.o: mainWindow.cpp mainWindow.h \
 		DPuntuaciones.h \
 		ui_DPuntuaciones.h \
 		DControlPad.h \
-		ui_DControlPad.h
+		ui_DControlPad.h \
+		Comida.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainWindow.o mainWindow.cpp
+
+WidgetComida.o: WidgetComida.cpp WidgetComida.h \
+		ui_WidgetComida.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WidgetComida.o WidgetComida.cpp
+
+moc_DComidas.o: moc_DComidas.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DComidas.o moc_DComidas.cpp
 
 moc_DControlPad.o: moc_DControlPad.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DControlPad.o moc_DControlPad.cpp
@@ -463,6 +522,9 @@ moc_DPuntuaciones.o: moc_DPuntuaciones.cpp
 
 moc_mainWindow.o: moc_mainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainWindow.o moc_mainWindow.cpp
+
+moc_WidgetComida.o: moc_WidgetComida.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_WidgetComida.o moc_WidgetComida.cpp
 
 ####### Install
 
