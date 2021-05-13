@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>widgetComida</class>
- <widget class="QWidget" name="widgetComida">
+ <class>WidgetComida</class>
+ <widget class="QWidget" name="WidgetComida">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -81,7 +81,7 @@
     <string>Cuadritos</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spinBox">
+  <widget class="QSpinBox" name="spinBoxAlimento">
    <property name="geometry">
     <rect>
      <x>240</x>

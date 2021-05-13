@@ -23,7 +23,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_widgetComida
+class Ui_WidgetComida
 {
 public:
     QFrame *frame;
@@ -31,14 +31,14 @@ public:
     QPushButton *btnCargarImagen;
     QCheckBox *cSeleccionable;
     QLabel *label_2;
-    QSpinBox *spinBox;
+    QSpinBox *spinBoxAlimento;
 
-    void setupUi(QWidget *widgetComida)
+    void setupUi(QWidget *WidgetComida)
     {
-        if (widgetComida->objectName().isEmpty())
-            widgetComida->setObjectName(QStringLiteral("widgetComida"));
-        widgetComida->resize(400, 300);
-        frame = new QFrame(widgetComida);
+        if (WidgetComida->objectName().isEmpty())
+            WidgetComida->setObjectName(QStringLiteral("WidgetComida"));
+        WidgetComida->resize(400, 300);
+        frame = new QFrame(WidgetComida);
         frame->setObjectName(QStringLiteral("frame"));
         frame->setGeometry(QRect(10, 50, 201, 181));
         frame->setFrameShape(QFrame::StyledPanel);
@@ -46,37 +46,37 @@ public:
         lImagen = new QLabel(frame);
         lImagen->setObjectName(QStringLiteral("lImagen"));
         lImagen->setGeometry(QRect(10, 10, 181, 161));
-        btnCargarImagen = new QPushButton(widgetComida);
+        btnCargarImagen = new QPushButton(WidgetComida);
         btnCargarImagen->setObjectName(QStringLiteral("btnCargarImagen"));
         btnCargarImagen->setGeometry(QRect(240, 50, 101, 25));
-        cSeleccionable = new QCheckBox(widgetComida);
+        cSeleccionable = new QCheckBox(WidgetComida);
         cSeleccionable->setObjectName(QStringLiteral("cSeleccionable"));
         cSeleccionable->setGeometry(QRect(240, 80, 121, 23));
-        label_2 = new QLabel(widgetComida);
+        label_2 = new QLabel(WidgetComida);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(240, 180, 67, 17));
-        spinBox = new QSpinBox(widgetComida);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setGeometry(QRect(240, 200, 91, 26));
+        spinBoxAlimento = new QSpinBox(WidgetComida);
+        spinBoxAlimento->setObjectName(QStringLiteral("spinBoxAlimento"));
+        spinBoxAlimento->setGeometry(QRect(240, 200, 91, 26));
 
-        retranslateUi(widgetComida);
+        retranslateUi(WidgetComida);
 
-        QMetaObject::connectSlotsByName(widgetComida);
+        QMetaObject::connectSlotsByName(WidgetComida);
     } // setupUi
 
-    void retranslateUi(QWidget *widgetComida)
+    void retranslateUi(QWidget *WidgetComida)
     {
-        widgetComida->setWindowTitle(QApplication::translate("widgetComida", "Form", Q_NULLPTR));
-        lImagen->setText(QApplication::translate("widgetComida", "etiqueta", Q_NULLPTR));
-        btnCargarImagen->setText(QApplication::translate("widgetComida", "Cargar Imagen", Q_NULLPTR));
-        cSeleccionable->setText(QApplication::translate("widgetComida", "Seleccionable", Q_NULLPTR));
-        label_2->setText(QApplication::translate("widgetComida", "Cuadritos", Q_NULLPTR));
+        WidgetComida->setWindowTitle(QApplication::translate("WidgetComida", "Form", Q_NULLPTR));
+        lImagen->setText(QApplication::translate("WidgetComida", "etiqueta", Q_NULLPTR));
+        btnCargarImagen->setText(QApplication::translate("WidgetComida", "Cargar Imagen", Q_NULLPTR));
+        cSeleccionable->setText(QApplication::translate("WidgetComida", "Seleccionable", Q_NULLPTR));
+        label_2->setText(QApplication::translate("WidgetComida", "Cuadritos", Q_NULLPTR));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class widgetComida: public Ui_widgetComida {};
+    class WidgetComida: public Ui_WidgetComida {};
 } // namespace Ui
 
 QT_END_NAMESPACE

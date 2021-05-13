@@ -36,7 +36,7 @@ public:
     QColor color = QColor(random()%256, random()%256, random()%256);
 
     QVector<QPoint> serpiente;
-    QVector<Comida> comidas;
+    QVector<Comida*> comidas;
 
     typedef enum { derecha, izquierda, arriba, abajo, } direcciones;
     direcciones direccion;
@@ -47,10 +47,9 @@ public:
     DNombreJugador * dNombreJugador;
     DPuntuaciones * dPuntuaciones;
     DControlPad * dControlPad;
-    //DComidas * dComidas;
+    DComidas * dComidas;
     
-    Comida comidaActual;
-
+    Comida * comidaActual;
 
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent * event);

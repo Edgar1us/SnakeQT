@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow( parent ){
     dNombreJugador = NULL;
     dPuntuaciones = NULL;
     dControlPad = NULL;
+    dComidas = NULL;
 
     puntuacion = 0;
 
@@ -56,7 +57,7 @@ void MainWindow::paintEvent(QPaintEvent * event){
     }
     pintor.setBrush(Qt::red);
     pintor.drawRect(QRect(comidaX,comidaY,TAM,TAM));
-    pintor.drawImage(QRect(comidaX,comidaY,TAM,TAM),comidaActual.imagen);
+    pintor.drawImage(QRect(comidaX,comidaY,TAM,TAM),comidaActual->imagen);
   
 }
 
@@ -70,7 +71,15 @@ void MainWindow::inicializarMenu(){
     connect(accionControlPad, SIGNAL(triggered()),
             this, SLOT(slotPanelDControl()));
 
+    accionDComidas = new QAction("Comidas", this);
+    accionDComidas->setToolTip("Comidas"); 
+    accionDComidas->setStatusTip("Comidas");
+
+    connect(accionDComidas, SIGNAL(triggered()),
+            this, SLOT(slotDComidas()));
+
     menu->addAction(accionControlPad);
+    menu->addAction(accionDComidas);
 
 }
 
@@ -97,15 +106,6 @@ void MainWindow::keyPressEvent(QKeyEvent * event){
 
 }
 
-/*void MainWindow::nuevoJugador(){
-
-    if (dNombreJugador == NULL){
-            dNombreJugador = new DNombreJugador(this);    
-    }
-
-    
-
-}*/
 
 void MainWindow::mostrarPuntuaciones(){
 
@@ -136,8 +136,11 @@ void MainWindow::inicializaComidas(){
     for (int i=0; i<frutas.length(); i++){
    	    QString ruta = "./imagenes/";
    	    ruta = ruta + frutas.at(i);
-   	    comidas.append(Comida(QImage(ruta),2*i+1,true));
+        Comida * c;
+        c = new Comida(QImage(ruta),2*i+1,true);
+   	    comidas.append(c);
     }
+    
     comidaActual = comidas.at(0);
 
 }
@@ -190,7 +193,7 @@ void MainWindow::slotTemporizador(){
 
     if ( (xNueva == comidaX ) && (yNueva == comidaY) ) {
 
-        segmentosQuedan = comidaActual.alimento;
+        segmentosQuedan = comidaActual->alimento;
         comidaX = ((random() % width()) /TAM ) * TAM ;
         comidaY = ((random() % height()) /TAM ) * TAM ;
         int nuevo = random() % comidas.length();
@@ -266,4 +269,13 @@ void MainWindow::slotPanelDControl(){
         }
 
         dControlPad->show();
+}
+
+void MainWindow::slotDComidas(){
+
+    if (dComidas == NULL){
+            dComidas = new DComidas(&comidas);    
+        }
+
+        dComidas->exec();
 }

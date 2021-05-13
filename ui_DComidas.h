@@ -18,71 +18,60 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
-class Ui_dialogComidas
+class Ui_DComidas
 {
 public:
     QDialogButtonBox *buttonBox;
     QTabWidget *tabComidas;
-    QWidget *tab;
-    QWidget *tab_2;
     QPushButton *btnTodas;
     QPushButton *btnMenos;
     QPushButton *btnMas;
 
-    void setupUi(QDialog *dialogComidas)
+    void setupUi(QDialog *DComidas)
     {
-        if (dialogComidas->objectName().isEmpty())
-            dialogComidas->setObjectName(QStringLiteral("dialogComidas"));
-        dialogComidas->resize(532, 301);
-        buttonBox = new QDialogButtonBox(dialogComidas);
+        if (DComidas->objectName().isEmpty())
+            DComidas->setObjectName(QStringLiteral("DComidas"));
+        DComidas->resize(532, 428);
+        buttonBox = new QDialogButtonBox(DComidas);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(160, 260, 341, 32));
+        buttonBox->setGeometry(QRect(150, 390, 341, 32));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        tabComidas = new QTabWidget(dialogComidas);
+        tabComidas = new QTabWidget(DComidas);
         tabComidas->setObjectName(QStringLiteral("tabComidas"));
-        tabComidas->setGeometry(QRect(40, 10, 461, 211));
-        tab = new QWidget();
-        tab->setObjectName(QStringLiteral("tab"));
-        tabComidas->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        tabComidas->addTab(tab_2, QString());
-        btnTodas = new QPushButton(dialogComidas);
+        tabComidas->setGeometry(QRect(40, 10, 461, 341));
+        btnTodas = new QPushButton(DComidas);
         btnTodas->setObjectName(QStringLiteral("btnTodas"));
-        btnTodas->setGeometry(QRect(40, 240, 121, 25));
-        btnMenos = new QPushButton(dialogComidas);
+        btnTodas->setGeometry(QRect(40, 360, 121, 25));
+        btnMenos = new QPushButton(DComidas);
         btnMenos->setObjectName(QStringLiteral("btnMenos"));
-        btnMenos->setGeometry(QRect(170, 240, 51, 31));
-        btnMas = new QPushButton(dialogComidas);
+        btnMenos->setGeometry(QRect(170, 360, 51, 31));
+        btnMas = new QPushButton(DComidas);
         btnMas->setObjectName(QStringLiteral("btnMas"));
-        btnMas->setGeometry(QRect(230, 240, 51, 31));
+        btnMas->setGeometry(QRect(230, 360, 51, 31));
 
-        retranslateUi(dialogComidas);
-        QObject::connect(buttonBox, SIGNAL(accepted()), dialogComidas, SLOT(accept()));
-        QObject::connect(buttonBox, SIGNAL(rejected()), dialogComidas, SLOT(reject()));
+        retranslateUi(DComidas);
+        QObject::connect(buttonBox, SIGNAL(accepted()), DComidas, SLOT(accept()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), DComidas, SLOT(reject()));
 
-        QMetaObject::connectSlotsByName(dialogComidas);
+        QMetaObject::connectSlotsByName(DComidas);
     } // setupUi
 
-    void retranslateUi(QDialog *dialogComidas)
+    void retranslateUi(QDialog *DComidas)
     {
-        dialogComidas->setWindowTitle(QApplication::translate("dialogComidas", "Dialog", Q_NULLPTR));
-        tabComidas->setTabText(tabComidas->indexOf(tab), QApplication::translate("dialogComidas", "Tab 1", Q_NULLPTR));
-        tabComidas->setTabText(tabComidas->indexOf(tab_2), QApplication::translate("dialogComidas", "Tab 2", Q_NULLPTR));
-        btnTodas->setText(QApplication::translate("dialogComidas", "Seleccionar todas", Q_NULLPTR));
-        btnMenos->setText(QApplication::translate("dialogComidas", "-", Q_NULLPTR));
-        btnMas->setText(QApplication::translate("dialogComidas", "+", Q_NULLPTR));
+        DComidas->setWindowTitle(QApplication::translate("DComidas", "Dialog", Q_NULLPTR));
+        btnTodas->setText(QApplication::translate("DComidas", "Seleccionar todas", Q_NULLPTR));
+        btnMenos->setText(QApplication::translate("DComidas", "-", Q_NULLPTR));
+        btnMas->setText(QApplication::translate("DComidas", "+", Q_NULLPTR));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class dialogComidas: public Ui_dialogComidas {};
+    class DComidas: public Ui_DComidas {};
 } // namespace Ui
 
 QT_END_NAMESPACE
