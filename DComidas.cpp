@@ -11,6 +11,8 @@ DComidas::DComidas(QVector<Comida*> * comidas, QWidget *parent) : pComidas(comid
    	    this, SLOT(slotTodasSeleccionadas()));
     connect(btnMenos,SIGNAL(clicked()),
    	    this, SLOT(slotEliminarComidas()));
+    connect(btnMas,SIGNAL(clicked()),
+   	    this, SLOT(slotAddComidas()));
 }
 
 
@@ -37,4 +39,19 @@ void DComidas::slotEliminarComidas(){
     }
     tabComidas->removeTab(index);
 
+}
+
+void DComidas::slotAddComidas(){
+
+    int in = 3;
+    QString ruta = "./imagenes/cerezas.png";
+    Comida * comidaAdd = new Comida(QImage(ruta), 7, true);
+    tabComidas->addTab(new WidgetComida(comidaAdd),QString::number(in));
+
+    pComidas->append(comidaAdd);
+
+}
+
+void DComidas::addComida(Comida * nC){
+    tabComidas->addTab(new WidgetComida(nC), QString::number(tabComidas->count()));
 }

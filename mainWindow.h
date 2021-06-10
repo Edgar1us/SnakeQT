@@ -11,45 +11,73 @@
 #include <QPoint>
 #include <QColor>
 #include <QAction>
+#include <QImage>
 #include "DNombreJugador.h"
 #include "DPuntuaciones.h"
 #include "DControlPad.h"
 #include "Comida.h"
 #include "DComidas.h"
+#include "DPosicionFruta.h"
+#include <QChart>
+#include <QChartView>
+#include <QLineSeries>
+#include <QPieSeries> 
+#include "WidgetClick.h"
+#include "DSecuenciaFrutas.h"
+#include "DPosicionarDos.h"
+
+QT_CHARTS_USE_NAMESPACE
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
+    MainWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
+
+    QImage spritesSnake;
 
     QTimer *temporizador;
-    int posX,posY;
+    int posX, posY;
 
+    int posiX = 400, posiY = 200, destX, destY;
     int comidaX, comidaY;
     int xNueva, yNueva;
+    int indComida = -1; 
     static const int TAM=40;
     int puntuacion;
     bool haComido;
     int segmentosQuedan;
 
+    QLabel * textBarra;
+
+    QPushButton *boton;
+
     QColor color = QColor(random()%256, random()%256, random()%256);
 
     QVector<QPoint> serpiente;
     QVector<Comida*> comidas;
+    int vecesComidas[3];
+
 
     typedef enum { derecha, izquierda, arriba, abajo, } direcciones;
     direcciones direccion;
     Qt::Key teclaPulsada;
 
-    QAction * accionControlPad, * accionDComidas;
+    QAction * accionControlPad, * accionDComidas, *accionDPosicionFruta, *accionDSecuenciaFruta;
+    QAction * accionDPosicionarDos;
 
     DNombreJugador * dNombreJugador;
     DPuntuaciones * dPuntuaciones;
     DControlPad * dControlPad;
     DComidas * dComidas;
+    DPosicionFruta * dPosicionFruta;
+    DSecuenciaFrutas * dSecuenciaFrutas;
+    DPosicionarDos * dPosicionarDos;
     
     Comida * comidaActual;
+    QChart * chart;
+    QChartView *chartView;
+    QPieSeries * serie;
 
     void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent * event);
@@ -58,6 +86,10 @@ public:
     void guardarPuntuacion(QString, int);
     void inicializarMenu();
     void inicializaComidas();
+    void dropEvent(QDropEvent * event);
+    void dragEnterEvent(QDragEnterEvent * event);
+    void actualizarDatosGrafico();
+
 
 public slots:
 
@@ -65,6 +97,11 @@ public slots:
     void slotCambiaDireccion(DControlPad::Direccion);
     void slotPanelDControl();
     void slotDComidas();
+    void slotDPosicionFruta();
+    void slotDPosicionarDos();
+    void slotDSecuenciaFrutas();
+    void slotRecogerPosicionFruta(float, float);
+    void slotRecogerPosicionDos(int, int);
     
 
 };

@@ -18,7 +18,7 @@ class WidgetComida : public QWidget, public Ui::WidgetComida{
 	public slots:
 		void slotSpin(int);
 		void slotSeleccionable(int);
-		
+		void slotCargarImagen();
 
 };
 

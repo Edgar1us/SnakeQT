@@ -1,6 +1,7 @@
 #include "WidgetComida.h"
 #include <QPixmap>
 #include <QDebug>
+#include <QFileDialog>
 
 WidgetComida::WidgetComida( Comida * c, QWidget *parent) : comida(c), QWidget(parent){
     setupUi(this);    
@@ -23,6 +24,9 @@ WidgetComida::WidgetComida( Comida * c, QWidget *parent) : comida(c), QWidget(pa
     connect(cSeleccionable,SIGNAL(stateChanged(int)),
    	    this, SLOT(slotSeleccionable(int)));
 
+    connect(btnCargarImagen,SIGNAL(clicked()),
+   	    this, SLOT(slotCargarImagen()));
+
     
 
 }
@@ -40,6 +44,19 @@ void WidgetComida::slotSeleccionable(int estado){
     else{
         comida->seleccionable=false;
     }
+
+}
+
+void WidgetComida::slotCargarImagen(){
+
+    QString rutaFruta = QFileDialog::getOpenFileName(this, tr("Open File"), "./imagenes", 
+    tr("Images (*.png)"));
+
+    comida->imagen = QImage(rutaFruta);
+    QPixmap pixmap;
+    pixmap.convertFromImage(comida->imagen);
+    lImagen->setPixmap(pixmap);
+
 
 }
 

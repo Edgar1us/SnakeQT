@@ -18,6 +18,8 @@ class DComidas : public QDialog, public Ui::DComidas{
     public slots:
         void slotTodasSeleccionadas();
         void slotEliminarComidas();
+        void slotAddComidas();
+        void addComida(Comida * nC);
 };
 
 #endif

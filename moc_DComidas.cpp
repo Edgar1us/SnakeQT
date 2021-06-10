@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DComidas_t {
-    QByteArrayData data[4];
-    char stringdata0[53];
+    QByteArrayData data[8];
+    char stringdata0[89];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,11 +34,16 @@ static const qt_meta_stringdata_DComidas_t qt_meta_stringdata_DComidas = {
 QT_MOC_LITERAL(0, 0, 8), // "DComidas"
 QT_MOC_LITERAL(1, 9, 22), // "slotTodasSeleccionadas"
 QT_MOC_LITERAL(2, 32, 0), // ""
-QT_MOC_LITERAL(3, 33, 19) // "slotEliminarComidas"
+QT_MOC_LITERAL(3, 33, 19), // "slotEliminarComidas"
+QT_MOC_LITERAL(4, 53, 14), // "slotAddComidas"
+QT_MOC_LITERAL(5, 68, 9), // "addComida"
+QT_MOC_LITERAL(6, 78, 7), // "Comida*"
+QT_MOC_LITERAL(7, 86, 2) // "nC"
 
     },
     "DComidas\0slotTodasSeleccionadas\0\0"
-    "slotEliminarComidas"
+    "slotEliminarComidas\0slotAddComidas\0"
+    "addComida\0Comida*\0nC"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,7 +53,7 @@ static const uint qt_meta_data_DComidas[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -56,12 +61,16 @@ static const uint qt_meta_data_DComidas[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    0,   25,    2, 0x0a /* Public */,
+       1,    0,   34,    2, 0x0a /* Public */,
+       3,    0,   35,    2, 0x0a /* Public */,
+       4,    0,   36,    2, 0x0a /* Public */,
+       5,    1,   37,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
 
        0        // eod
 };
@@ -74,10 +83,11 @@ void DComidas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         switch (_id) {
         case 0: _t->slotTodasSeleccionadas(); break;
         case 1: _t->slotEliminarComidas(); break;
+        case 2: _t->slotAddComidas(); break;
+        case 3: _t->addComida((*reinterpret_cast< Comida*(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject DComidas::staticMetaObject = {
@@ -107,13 +117,13 @@ int DComidas::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 4;
     }
     return _id;
 }
