@@ -48,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     dPosicionFruta = NULL;
     dSecuenciaFrutas = NULL;
     dPosicionarDos = NULL;
+    dListaFrutas = NULL;
+    dInformacion = NULL;
+    dControlSnake = NULL;
 
     puntuacion = 0;
 
@@ -188,6 +191,7 @@ void MainWindow::dropEvent(QDropEvent * event){
 
 void MainWindow::inicializarMenu(){
     QMenu *menu = menuBar()->addMenu("Opciones");
+    QMenu *menuInformacion = menuBar()->addMenu("Información");
 
     accionControlPad = new QAction("Panel de control", this);
     accionControlPad->setToolTip("Panel de control"); 
@@ -224,11 +228,45 @@ void MainWindow::inicializarMenu(){
     connect(accionDPosicionarDos, SIGNAL(triggered()),
             this, SLOT(slotDPosicionarDos()));
 
+    accionDListaFrutas = new QAction("Lista frutas", this);
+    accionDListaFrutas->setToolTip("Listado");
+    accionDListaFrutas->setStatusTip("Listado");
+
+    connect(accionDListaFrutas, SIGNAL(triggered()),
+            this, SLOT(slotDListaFrutas()));
+
+
+    accionDInformacion = new QAction("Información snake", this);
+    accionDInformacion->setToolTip("Información");
+    accionDInformacion->setStatusTip("Información");
+
+    connect(accionDInformacion, SIGNAL(triggered()),
+            this, SLOT(slotDInformacion()));
+
+    accionDControlSnake = new QAction("Controles snake", this);
+    accionDControlSnake->setToolTip("Modificar snake");
+    accionDControlSnake->setStatusTip("Modificar");
+
+    connect(accionDControlSnake, SIGNAL(triggered()),
+            this, SLOT(slotDControlSnake()));
+
+    accionDInfDetallada = new QAction("Informacion detallada", this);
+    accionDInfDetallada->setToolTip("Informacion detallada");
+    accionDInfDetallada->setStatusTip("Informacion detallada");
+
+    connect(accionDInfDetallada, SIGNAL(triggered()),
+            this, SLOT(slotDInfDetallada()));        
+
     menu->addAction(accionControlPad);
     menu->addAction(accionDComidas);
     menu->addAction(accionDPosicionFruta);
     menu->addAction(accionDSecuenciaFruta);
     menu->addAction(accionDPosicionarDos);
+    menu->addAction(accionDListaFrutas);
+    menu->addAction(accionDControlSnake);
+
+    menuInformacion->addAction(accionDInformacion);
+    menuInformacion->addAction(accionDInfDetallada);
 
 }
 
@@ -420,7 +458,8 @@ void MainWindow::slotTemporizador(){
    	    temporizador->stop();
 
         puntuacion = serpiente.size();
-        //qDebug() << "Puntuacion: " << puntuacion;
+        tamanyoSerpiente = puntuacion;      
+       // qDebug() << "Tmaño srpiente: " << tamanyoSerpiente;
 
 
         if (dNombreJugador == NULL){
@@ -538,4 +577,40 @@ void MainWindow::slotDPosicionarDos(){
     }
     dPosicionarDos->show();
 
+}
+
+void MainWindow::slotDListaFrutas(){
+
+    if(dListaFrutas == NULL){
+        dListaFrutas = new DListaFrutas(comidas);
+    }
+    dListaFrutas->show();
+
+}
+
+void MainWindow::slotDInformacion(){
+    tamanyoSerpiente = serpiente.size();
+    if(dInformacion == NULL){
+        dInformacion = new DInformacion(tamanyoSerpiente, this);
+
+    }
+    //qDebug() << "Serpiente tam: " << tamanyoSerpiente;
+    dInformacion->show();
+
+}
+
+void MainWindow::slotDControlSnake(){
+    if(dControlSnake == NULL){
+        dControlSnake = new DControlSnake(temporizador);
+
+    }
+    dControlSnake->show();
+
+}
+
+void MainWindow::slotDInfDetallada(){
+    if(dInfDetallada == NULL){
+        dInfDetallada = new DInformacionDetallada(serpiente);
+    }
+    dInfDetallada->show();
 }

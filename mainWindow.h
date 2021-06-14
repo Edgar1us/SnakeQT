@@ -25,6 +25,10 @@
 #include "WidgetClick.h"
 #include "DSecuenciaFrutas.h"
 #include "DPosicionarDos.h"
+#include "DListaFrutas.h"
+#include "DInformacion.h"
+#include "DControlSnake.h"
+#include "DInformacionDetallada.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -44,7 +48,7 @@ public:
     int xNueva, yNueva;
     int indComida = -1; 
     static const int TAM=40;
-    int puntuacion;
+    int puntuacion, tamanyoSerpiente;
     bool haComido;
     int segmentosQuedan;
 
@@ -64,7 +68,8 @@ public:
     Qt::Key teclaPulsada;
 
     QAction * accionControlPad, * accionDComidas, *accionDPosicionFruta, *accionDSecuenciaFruta;
-    QAction * accionDPosicionarDos;
+    QAction * accionDPosicionarDos, *accionDListaFrutas, *accionDInformacion, *accionDControlSnake;
+    QAction * accionDInfDetallada;
 
     DNombreJugador * dNombreJugador;
     DPuntuaciones * dPuntuaciones;
@@ -73,6 +78,10 @@ public:
     DPosicionFruta * dPosicionFruta;
     DSecuenciaFrutas * dSecuenciaFrutas;
     DPosicionarDos * dPosicionarDos;
+    DListaFrutas * dListaFrutas;
+    DInformacion * dInformacion;
+    DControlSnake * dControlSnake;
+    DInformacionDetallada * dInfDetallada;
     
     Comida * comidaActual;
     QChart * chart;
@@ -100,6 +109,10 @@ public slots:
     void slotDPosicionFruta();
     void slotDPosicionarDos();
     void slotDSecuenciaFrutas();
+    void slotDListaFrutas();
+    void slotDInformacion();
+    void slotDControlSnake();
+    void slotDInfDetallada();
     void slotRecogerPosicionFruta(float, float);
     void slotRecogerPosicionDos(int, int);
     
