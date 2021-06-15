@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     dInformacion = NULL;
     dControlSnake = NULL;
     dExamen = NULL;
+    dExamenDibujo = NULL;
 
     puntuacion = 0;
 
@@ -266,7 +267,14 @@ void MainWindow::inicializarMenu(){
     accionDExamen->setStatusTip("Examen");
 
     connect(accionDExamen, SIGNAL(triggered()),
-            this, SLOT(slotDExamen()));              
+            this, SLOT(slotDExamen())); 
+
+    accionDExamenDibujo = new QAction("Examen Dibujo", this);
+    accionDExamenDibujo->setToolTip("Examen dibujo");
+    accionDExamenDibujo->setStatusTip("Examen dibujo");
+
+    connect(accionDExamenDibujo, SIGNAL(triggered()),
+            this, SLOT(slotDExamenDibujo()));             
 
     menu->addAction(accionControlPad);
     menu->addAction(accionDComidas);
@@ -280,6 +288,7 @@ void MainWindow::inicializarMenu(){
     menuInformacion->addAction(accionDInfDetallada);
 
     menuExamen->addAction(accionDExamen);
+    menuExamen->addAction(accionDExamenDibujo);
 
 }
 
@@ -668,4 +677,11 @@ void MainWindow::slotDExamen(){
         dExamen = new DExamen(&posiciones, &teclas);
     }
     dExamen->show();
+}
+
+void MainWindow::slotDExamenDibujo(){
+    if(dExamenDibujo == NULL){
+        dExamenDibujo = new DExamenDibujo(&teclas);
+    }
+    dExamenDibujo->show();
 }

@@ -30,6 +30,7 @@
 #include "DControlSnake.h"
 #include "DInformacionDetallada.h"
 #include "DExamen.h"
+#include "DExamenDibujo.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -74,7 +75,7 @@ public:
 
     QAction * accionControlPad, * accionDComidas, *accionDPosicionFruta, *accionDSecuenciaFruta;
     QAction * accionDPosicionarDos, *accionDListaFrutas, *accionDInformacion, *accionDControlSnake;
-    QAction * accionDInfDetallada, * accionDExamen;
+    QAction * accionDInfDetallada, * accionDExamen, *accionDExamenDibujo;
 
     DNombreJugador * dNombreJugador;
     DPuntuaciones * dPuntuaciones;
@@ -88,6 +89,7 @@ public:
     DControlSnake * dControlSnake;
     DInformacionDetallada * dInfDetallada;
     DExamen * dExamen;
+    DExamenDibujo * dExamenDibujo;
     
     Comida * comidaActual;
     QChart * chart;
@@ -120,6 +122,7 @@ public slots:
     void slotDControlSnake();
     void slotDInfDetallada();
     void slotDExamen();
+    void slotDExamenDibujo();
     void slotRecogerPosicionFruta(float, float);
     void slotRecogerPosicionDos(int, int);
     
