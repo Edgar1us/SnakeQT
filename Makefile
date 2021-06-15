@@ -54,6 +54,7 @@ SOURCES       = Comida.cpp \
 		DComidas.cpp \
 		DControlPad.cpp \
 		DControlSnake.cpp \
+		DExamen.cpp \
 		DInformacion.cpp \
 		DInformacionDetallada.cpp \
 		DListaFrutas.cpp \
@@ -69,6 +70,7 @@ SOURCES       = Comida.cpp \
 		WPosicionarDos.cpp moc_DComidas.cpp \
 		moc_DControlPad.cpp \
 		moc_DControlSnake.cpp \
+		moc_DExamen.cpp \
 		moc_DInformacion.cpp \
 		moc_DInformacionDetallada.cpp \
 		moc_DListaFrutas.cpp \
@@ -85,6 +87,7 @@ OBJECTS       = Comida.o \
 		DComidas.o \
 		DControlPad.o \
 		DControlSnake.o \
+		DExamen.o \
 		DInformacion.o \
 		DInformacionDetallada.o \
 		DListaFrutas.o \
@@ -101,6 +104,7 @@ OBJECTS       = Comida.o \
 		moc_DComidas.o \
 		moc_DControlPad.o \
 		moc_DControlSnake.o \
+		moc_DExamen.o \
 		moc_DInformacion.o \
 		moc_DInformacionDetallada.o \
 		moc_DListaFrutas.o \
@@ -193,6 +197,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		DComidas.h \
 		DControlPad.h \
 		DControlSnake.h \
+		DExamen.h \
 		DInformacion.h \
 		DInformacionDetallada.h \
 		DListaFrutas.h \
@@ -208,6 +213,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		DComidas.cpp \
 		DControlPad.cpp \
 		DControlSnake.cpp \
+		DExamen.cpp \
 		DInformacion.cpp \
 		DInformacionDetallada.cpp \
 		DListaFrutas.cpp \
@@ -229,7 +235,7 @@ TARGET        = snake
 first: all
 ####### Build rules
 
-$(TARGET): ui_DComidas.h ui_DControlPad.h ui_DControlSnake.h ui_DInformacion.h ui_DInformacionDetallada.h ui_DListaFrutas.h ui_DNombreJugador.h ui_DPosicionarDos.h ui_DPosicionFruta.h ui_DPuntuaciones.h ui_DSecuenciaFrutas.h ui_WidgetClick.h ui_WidgetComida.h ui_WidgetImagenFruta.h ui_WPosicionarDos.h $(OBJECTS)  
+$(TARGET): ui_DComidas.h ui_DControlPad.h ui_DControlSnake.h ui_DExamen.h ui_DInformacion.h ui_DInformacionDetallada.h ui_DListaFrutas.h ui_DNombreJugador.h ui_DPosicionarDos.h ui_DPosicionFruta.h ui_DPuntuaciones.h ui_DSecuenciaFrutas.h ui_WidgetClick.h ui_WidgetComida.h ui_WidgetImagenFruta.h ui_WPosicionarDos.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: snake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -414,9 +420,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Comida.h DComidas.h DControlPad.h DControlSnake.h DInformacion.h DInformacionDetallada.h DListaFrutas.h DNombreJugador.h DPosicionarDos.h DPosicionFruta.h DPuntuaciones.h DSecuenciaFrutas.h mainWindow.h WidgetClick.h WidgetComida.h WPosicionarDos.h $(DISTDIR)/
-	$(COPY_FILE) --parents Comida.cpp DComidas.cpp DControlPad.cpp DControlSnake.cpp DInformacion.cpp DInformacionDetallada.cpp DListaFrutas.cpp DNombreJugador.cpp DPosicionarDos.cpp DPosicionFruta.cpp DPuntuaciones.cpp DSecuenciaFrutas.cpp main.cpp mainWindow.cpp WidgetClick.cpp WidgetComida.cpp WPosicionarDos.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents DComidas.ui DControlPad.ui DControlSnake.ui DInformacion.ui DInformacionDetallada.ui DListaFrutas.ui DNombreJugador.ui DPosicionarDos.ui DPosicionFruta.ui DPuntuaciones.ui DSecuenciaFrutas.ui WidgetClick.ui WidgetComida.ui WidgetImagenFruta.ui WPosicionarDos.ui $(DISTDIR)/
+	$(COPY_FILE) --parents Comida.h DComidas.h DControlPad.h DControlSnake.h DExamen.h DInformacion.h DInformacionDetallada.h DListaFrutas.h DNombreJugador.h DPosicionarDos.h DPosicionFruta.h DPuntuaciones.h DSecuenciaFrutas.h mainWindow.h WidgetClick.h WidgetComida.h WPosicionarDos.h $(DISTDIR)/
+	$(COPY_FILE) --parents Comida.cpp DComidas.cpp DControlPad.cpp DControlSnake.cpp DExamen.cpp DInformacion.cpp DInformacionDetallada.cpp DListaFrutas.cpp DNombreJugador.cpp DPosicionarDos.cpp DPosicionFruta.cpp DPuntuaciones.cpp DSecuenciaFrutas.cpp main.cpp mainWindow.cpp WidgetClick.cpp WidgetComida.cpp WPosicionarDos.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents DComidas.ui DControlPad.ui DControlSnake.ui DExamen.ui DInformacion.ui DInformacionDetallada.ui DListaFrutas.ui DNombreJugador.ui DPosicionarDos.ui DPosicionFruta.ui DPuntuaciones.ui DSecuenciaFrutas.ui WidgetClick.ui WidgetComida.ui WidgetImagenFruta.ui WPosicionarDos.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -448,9 +454,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -w -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_DComidas.cpp moc_DControlPad.cpp moc_DControlSnake.cpp moc_DInformacion.cpp moc_DInformacionDetallada.cpp moc_DListaFrutas.cpp moc_DNombreJugador.cpp moc_DPosicionarDos.cpp moc_DPosicionFruta.cpp moc_DPuntuaciones.cpp moc_DSecuenciaFrutas.cpp moc_mainWindow.cpp moc_WidgetClick.cpp moc_WidgetComida.cpp moc_WPosicionarDos.cpp
+compiler_moc_header_make_all: moc_DComidas.cpp moc_DControlPad.cpp moc_DControlSnake.cpp moc_DExamen.cpp moc_DInformacion.cpp moc_DInformacionDetallada.cpp moc_DListaFrutas.cpp moc_DNombreJugador.cpp moc_DPosicionarDos.cpp moc_DPosicionFruta.cpp moc_DPuntuaciones.cpp moc_DSecuenciaFrutas.cpp moc_mainWindow.cpp moc_WidgetClick.cpp moc_WidgetComida.cpp moc_WPosicionarDos.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_DComidas.cpp moc_DControlPad.cpp moc_DControlSnake.cpp moc_DInformacion.cpp moc_DInformacionDetallada.cpp moc_DListaFrutas.cpp moc_DNombreJugador.cpp moc_DPosicionarDos.cpp moc_DPosicionFruta.cpp moc_DPuntuaciones.cpp moc_DSecuenciaFrutas.cpp moc_mainWindow.cpp moc_WidgetClick.cpp moc_WidgetComida.cpp moc_WPosicionarDos.cpp
+	-$(DEL_FILE) moc_DComidas.cpp moc_DControlPad.cpp moc_DControlSnake.cpp moc_DExamen.cpp moc_DInformacion.cpp moc_DInformacionDetallada.cpp moc_DListaFrutas.cpp moc_DNombreJugador.cpp moc_DPosicionarDos.cpp moc_DPosicionFruta.cpp moc_DPuntuaciones.cpp moc_DSecuenciaFrutas.cpp moc_mainWindow.cpp moc_WidgetClick.cpp moc_WidgetComida.cpp moc_WPosicionarDos.cpp
 moc_DComidas.cpp: ui_DComidas.h \
 		Comida.h \
 		WidgetComida.h \
@@ -471,6 +477,12 @@ moc_DControlSnake.cpp: ui_DControlSnake.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/edgar/interfaces/qt/snake -I/home/edgar/interfaces/qt/snake -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DControlSnake.h -o moc_DControlSnake.cpp
+
+moc_DExamen.cpp: ui_DExamen.h \
+		DExamen.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/edgar/interfaces/qt/snake -I/home/edgar/interfaces/qt/snake -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DExamen.h -o moc_DExamen.cpp
 
 moc_DInformacion.cpp: ui_DInformacion.h \
 		DInformacion.h \
@@ -583,9 +595,9 @@ moc_WPosicionarDos.cpp: ui_WPosicionarDos.h \
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_DComidas.h ui_DControlPad.h ui_DControlSnake.h ui_DInformacion.h ui_DInformacionDetallada.h ui_DListaFrutas.h ui_DNombreJugador.h ui_DPosicionarDos.h ui_DPosicionFruta.h ui_DPuntuaciones.h ui_DSecuenciaFrutas.h ui_WidgetClick.h ui_WidgetComida.h ui_WidgetImagenFruta.h ui_WPosicionarDos.h
+compiler_uic_make_all: ui_DComidas.h ui_DControlPad.h ui_DControlSnake.h ui_DExamen.h ui_DInformacion.h ui_DInformacionDetallada.h ui_DListaFrutas.h ui_DNombreJugador.h ui_DPosicionarDos.h ui_DPosicionFruta.h ui_DPuntuaciones.h ui_DSecuenciaFrutas.h ui_WidgetClick.h ui_WidgetComida.h ui_WidgetImagenFruta.h ui_WPosicionarDos.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_DComidas.h ui_DControlPad.h ui_DControlSnake.h ui_DInformacion.h ui_DInformacionDetallada.h ui_DListaFrutas.h ui_DNombreJugador.h ui_DPosicionarDos.h ui_DPosicionFruta.h ui_DPuntuaciones.h ui_DSecuenciaFrutas.h ui_WidgetClick.h ui_WidgetComida.h ui_WidgetImagenFruta.h ui_WPosicionarDos.h
+	-$(DEL_FILE) ui_DComidas.h ui_DControlPad.h ui_DControlSnake.h ui_DExamen.h ui_DInformacion.h ui_DInformacionDetallada.h ui_DListaFrutas.h ui_DNombreJugador.h ui_DPosicionarDos.h ui_DPosicionFruta.h ui_DPuntuaciones.h ui_DSecuenciaFrutas.h ui_WidgetClick.h ui_WidgetComida.h ui_WidgetImagenFruta.h ui_WPosicionarDos.h
 ui_DComidas.h: DComidas.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic DComidas.ui -o ui_DComidas.h
@@ -597,6 +609,10 @@ ui_DControlPad.h: DControlPad.ui \
 ui_DControlSnake.h: DControlSnake.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic DControlSnake.ui -o ui_DControlSnake.h
+
+ui_DExamen.h: DExamen.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic DExamen.ui -o ui_DExamen.h
 
 ui_DInformacion.h: DInformacion.ui \
 		/usr/lib/qt5/bin/uic
@@ -673,6 +689,10 @@ DControlPad.o: DControlPad.cpp DControlPad.h \
 DControlSnake.o: DControlSnake.cpp DControlSnake.h \
 		ui_DControlSnake.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DControlSnake.o DControlSnake.cpp
+
+DExamen.o: DExamen.cpp DExamen.h \
+		ui_DExamen.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DExamen.o DExamen.cpp
 
 DInformacion.o: DInformacion.cpp DInformacion.h \
 		ui_DInformacion.h
@@ -800,6 +820,9 @@ moc_DControlPad.o: moc_DControlPad.cpp
 
 moc_DControlSnake.o: moc_DControlSnake.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DControlSnake.o moc_DControlSnake.cpp
+
+moc_DExamen.o: moc_DExamen.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DExamen.o moc_DExamen.cpp
 
 moc_DInformacion.o: moc_DInformacion.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DInformacion.o moc_DInformacion.cpp

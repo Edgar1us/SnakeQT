@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
 
     for (int i=0; i<4 ;i++ )
    	    serpiente.prepend(QPoint(40+40*i, 40));
+    posiciones.append(QPoint(40+40*0, 40));       
 
     direccion = derecha;
     teclaPulsada = Qt::Key_Space;
@@ -51,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(par
     dListaFrutas = NULL;
     dInformacion = NULL;
     dControlSnake = NULL;
+    dExamen = NULL;
 
     puntuacion = 0;
 
@@ -192,6 +194,7 @@ void MainWindow::dropEvent(QDropEvent * event){
 void MainWindow::inicializarMenu(){
     QMenu *menu = menuBar()->addMenu("Opciones");
     QMenu *menuInformacion = menuBar()->addMenu("Información");
+    QMenu *menuExamen = menuBar()->addMenu("Examen");
 
     accionControlPad = new QAction("Panel de control", this);
     accionControlPad->setToolTip("Panel de control"); 
@@ -255,7 +258,15 @@ void MainWindow::inicializarMenu(){
     accionDInfDetallada->setStatusTip("Informacion detallada");
 
     connect(accionDInfDetallada, SIGNAL(triggered()),
-            this, SLOT(slotDInfDetallada()));        
+            this, SLOT(slotDInfDetallada()));   
+
+
+    accionDExamen = new QAction("Examen", this);
+    accionDExamen->setToolTip("Examen");
+    accionDExamen->setStatusTip("Examen");
+
+    connect(accionDExamen, SIGNAL(triggered()),
+            this, SLOT(slotDExamen()));              
 
     menu->addAction(accionControlPad);
     menu->addAction(accionDComidas);
@@ -267,6 +278,8 @@ void MainWindow::inicializarMenu(){
 
     menuInformacion->addAction(accionDInformacion);
     menuInformacion->addAction(accionDInfDetallada);
+
+    menuExamen->addAction(accionDExamen);
 
 }
 
@@ -362,24 +375,51 @@ void MainWindow::slotTemporizador(){
     yNueva = serpiente.first().y();
 
     //Vamos a controlar el movimiento de la serpiente (DIRECCIÓN)
-    
+    QString * direct;
+    QPoint position;
     switch (teclaPulsada){
 
         case Qt::Key_Up : 
             direccion=arriba; 
+            qDebug() << "Tecla pulsada arriba";
+            teclas.append(QString("arriba"));
+            position.setX(xNueva);
+            position.setY(yNueva);
+            posiciones.append(position);
+            /*posiciones.first().setX(xNueva);
+            posiciones.first().setY(yNueva);*/
             break;
 
    	    case Qt::Key_Down : 
            direccion=abajo; 
+            teclas.append(QString("abajo"));
+            position.setX(xNueva);
+            position.setY(yNueva);
+            posiciones.append(position);
+           /*posiciones.first().setX(xNueva);
+           posiciones.first().setY(yNueva);*/
            break;
 
    	    case Qt::Key_Left : 
            direccion=izquierda; 
-           
+            teclas.append(QString("izquierda"));
+            position.setX(xNueva);
+            position.setY(yNueva);
+            posiciones.append(position);
+           //qDebug() << "Tecla pulsada izquierda";
+           /*posiciones.first().setX(xNueva);
+            posiciones.first().setY(yNueva);*/
            break;
 
    	    case Qt::Key_Right : 
            direccion=derecha; 
+            teclas.append(QString("derecha"));
+            position.setX(xNueva);
+            position.setY(yNueva);
+            posiciones.append(position);
+           //teclas.append(QString("derecha"));
+           /*posiciones.first().setX(xNueva);
+            posiciones.first().setY(yNueva);*/
            break;
 
     }
@@ -391,6 +431,7 @@ void MainWindow::slotTemporizador(){
         destX = 100;
         if(destX<posiX)
             posiX-=20;
+        
     }
         
 
@@ -398,6 +439,7 @@ void MainWindow::slotTemporizador(){
         xNueva = xNueva - 40;
         if(destX>posiX)
             posiX+=20;
+        
     }
         
 
@@ -613,4 +655,17 @@ void MainWindow::slotDInfDetallada(){
         dInfDetallada = new DInformacionDetallada(serpiente);
     }
     dInfDetallada->show();
+}
+
+void MainWindow::slotDExamen(){
+
+    /*qDebug() << "tamanyo vector teclas" << teclas.size();
+    for(int i = 0; i < teclas.size(); i++){
+        qDebug() << teclas.at(i);
+    }*/
+    if(dExamen == NULL){
+        //QVector<QString*> * punteroAteclas = teclas;
+        dExamen = new DExamen(&posiciones, &teclas);
+    }
+    dExamen->show();
 }
